@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Display from './components/display';
 import Console from './components/console';
-import appContext from './appContext';
 
 class App extends Component {
   constructor(props){
@@ -13,7 +12,7 @@ class App extends Component {
     };
   }
 
-  setMessage = (text) => {
+  msg = (text) => {
     this.setState(state => ({
       currentText: text
     }));
@@ -22,16 +21,10 @@ class App extends Component {
 
   render() {
     return (
-      <appContext.Provider
-        value={{
-          ...this.state,
-          sendMessage: this.setMessage
-        }}>
-        <div className="App">
-          <Console />
-          <Display message={this.state.currentText} />
-        </div>
-      </appContext.Provider>
+      <div className="App">
+        <Console passText={this.msg} />
+        <Display message={this.state.currentText} />
+      </div>
     );
   }
 }
